@@ -1,0 +1,54 @@
+<?xml version="1.0" ?>
+<package version="1.0">
+    <description>tsf-usb demonstration suite</description>
+
+    <!-- @page usb-ts USB Device Suite
+          @objective Exercise tsf-usb against the USB devices of the
+                     agent the suite runs on.
+
+          @par Test Groups:
+          - @ref usb-list - Enumerate devices and dump one in full
+          - @ref usb-audit - Read the USB security posture and gate on it
+
+          @par Notes:
+          - Enumeration runs on the agent, in its RPC server, over
+            libusb-1.0. It is read-only.
+          - What is attached is up to the host, so the tests do not
+            assert a device count: a host with no USB devices is a clean
+            pass, and the audit gates only on findings at least HIGH.
+          - On the localhost configuration the agent is the build
+            container, which must carry libusb-1.0 with its headers.
+    -->
+
+    <author mailto="maxim.menshikov@interpretica.io" />
+
+    <session track_conf="silent">
+        <!-- @page usb-ts-prologue Test Suite Prologue
+              @objective Prepare the test environment.
+        -->
+        <prologue>
+            <script name="prologue">
+                <objective>
+                    Prepare the test environment.
+                    @md
+                </objective>
+            </script>
+        </prologue>
+
+        <!-- @page usb-ts-epilogue Test Suite Epilogue
+              @objective Finalize the test environment.
+        -->
+        <epilogue>
+            <script name="epilogue">
+                <objective>
+                    Finalize the test environment.
+                    @md
+                </objective>
+            </script>
+        </epilogue>
+
+        <run>
+            <package name="usb" />
+        </run>
+    </session>
+</package>

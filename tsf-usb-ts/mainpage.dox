@@ -1,0 +1,23 @@
+/** @mainpage
+
+This suite exercises tsf-usb - enumerating the USB devices attached to
+the Test Agent it runs on, over libusb-1.0:
+
+- @ref usb-list - take a snapshot of every attached device, log each
+  (vendor/product, device and interface classes, strings), and read one
+  device's full config/interface/endpoint descriptor tree back;
+- @ref usb-audit - read the inventory as a security posture through
+  tsf-cybersec and gate on it: a single device that is both a keyboard
+  and a disk (the BadUSB composite), a firmware-update or vendor-opaque
+  interface, storage or input where a policy forbids it, or a device off
+  the allowlist.
+
+It is read-only - the agent enumerates and reads descriptors, it never
+configures a device or transfers data. What is attached is the host's to
+decide, so the suite asserts no device count: a host with nothing
+plugged in passes cleanly, and the audit fails only on a finding at
+least HIGH. The point is that tsf-usb enumerates over the library (not
+by scraping lsusb), parses the descriptors into structured devices, and
+classifies them into findings.
+
+*/
